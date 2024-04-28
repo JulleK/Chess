@@ -15,33 +15,28 @@ while (!chess.isGameOver()) {
   // do a random move
   const moves = chess.moves();
   const takeMoves = [];
-  const winMoves = [];
+  let move;
+  let winningMove = false;
 
   for (let i = 0; i < moves.length; i++) {
     if (moves[i].indexOf("++") !== -1) {
-      winMoves.push(moves[i]);
-    }
-  }
-
-  for (let i = 0; i < moves.length; i++) {
-    if (moves[i].indexOf("x") !== -1) {
+      move = moves[i];
+      winningMove = true;
+    } else if (moves[i].indexOf("x") !== -1) {
       takeMoves.push(moves[i]);
     }
   }
-  let move;
-  if (winMoves.length !== 0) {
-    move = winMoves[Math.floor(Math.random() * winMoves.length)];
-  } else if (takeMoves.length !== 0) {
-    move = takeMoves[Math.floor(Math.random() * takeMoves.length)];
-  } else {
-  }
 
-  move = moves[Math.floor(Math.random() * moves.length)];
+  if (!winningMove) {
+    if (takeMoves.length !== 0)
+      move = takeMoves[Math.floor(Math.random() * takeMoves.length)];
+    else move = moves[Math.floor(Math.random() * moves.length)];
+  }
 
   chess.move(move);
 
   // add ascii board into file after every move
-  fs.appendFileSync("chessGame.txt", `${chess.ascii()}\n\n`, (err) => {
+  fs.appendFileSync(filename, `${chess.ascii()}\n\n`, (err) => {
     if (err) {
       console.error(err);
     }
