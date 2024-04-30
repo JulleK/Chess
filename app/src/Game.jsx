@@ -30,7 +30,6 @@ export default function Game() {
       move.piece[1] === "P"
     )
       move.promotion = "Q"; // always promote to queen
-    console.log(move);
     validateMove(move);
   };
 
