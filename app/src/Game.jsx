@@ -11,7 +11,7 @@ export default function Game() {
 
   useEffect(() => {
     socket.on("connect", () => {
-      console.log("Socket connection estabilished");
+      console.log("Server connection estabilished");
     });
 
     socket.on("currentPosition", (position) => {
