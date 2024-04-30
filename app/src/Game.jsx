@@ -8,12 +8,6 @@ export default function Game() {
   const [currentPosition, setCurrentPosition] = useState(
     "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   );
-  const [playerMove, setPlayerMove] = useState({
-    from: "",
-    to: "",
-    piece: "",
-    promotion: "",
-  });
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -31,18 +25,23 @@ export default function Game() {
   };
 
   const onDrop = (move) => {
+    if (
+      (move.targetSquare[1] === "8" || move.targetSquare[1] === "1") &&
+      move.piece[1] === "P"
+    )
+      move.promotion = "Q"; // always promote to queen
     console.log(move);
-    setPlayerMove({
-      from: move.sourceSquare,
-      to: move.targetSquare,
-      piece: move.piece,
-      promotion: "q", // always promote to a queen for example simplicity
-    });
     validateMove(move);
   };
 
-  const validateMove = ({ piece, sourceSquare, targetSquare }) => {
-    let move = `${piece[1]}${sourceSquare}-${targetSquare}`;
+  const validateMove = ({
+    piece,
+    sourceSquare,
+    targetSquare,
+    promotion = "",
+  }) => {
+    let move = `${piece[1]}${sourceSquare}-${targetSquare}${promotion}`;
+    console.log(move);
     socket.emit("validate", move);
   };
 
@@ -50,6 +49,7 @@ export default function Game() {
     socket.emit("resetGame");
     console.log("game resetted");
   };
+
   return (
     <>
       {!gameStarted && (
@@ -63,15 +63,13 @@ export default function Game() {
           <div className="border-2 border-black">
             <Board position={currentPosition} onDrop={onDrop} />
           </div>
-          <div className="text-white">
-            <p className="mb-2">
-              {playerMove.piece} from {playerMove.from || "?"} to{" "}
-              {playerMove.to || "?"}
-            </p>
-            <button className="rounded-sm border-2 p-1" onClick={resetGame}>
-              Reset Game
-            </button>
-          </div>
+
+          <button
+            className="mt-5 rounded-sm border-2 p-1 text-white"
+            onClick={resetGame}
+          >
+            Reset Game
+          </button>
         </div>
       )}
     </>
