@@ -20,16 +20,16 @@ const rooms = [
   { white: "", black: "" },
 ];
 
-function addPlayerToRoom(socket) {
+function addPlayerToRoom(playerID) {
   for (let i = 0; i < rooms.length; i++) {
     if (!rooms[i].white) {
-      rooms[i].white = socket.id;
+      rooms[i].white = playerID;
       console.log(rooms);
-      break;
+      return `room${i}`;
     } else if (!rooms[i].black) {
-      rooms[i].black = socket.id;
+      rooms[i].black = playerID;
       console.log(rooms);
-      break;
+      return `room${i}`;
     }
   }
 }
@@ -51,7 +51,8 @@ function removePlayerFromRoom(socket) {
 io.on("connection", (socket) => {
   console.log("a player connected");
 
-  addPlayerToRoom(socket);
+  const playerID = socket.id;
+  addPlayerToRoom(playerID);
 
   socket.on("startingPosition", () => {
     socket.emit("currentPosition", chess.fen());
@@ -75,7 +76,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
-    removePlayerFromRoom(socket);
+    removePlayerFromRoom(playerID);
   });
 });
 
