@@ -5,7 +5,7 @@ Chess game in React and Node.js with socket.io
 
 To run this project install it locally
 
-then install react dependecies using npm, and run the development server:
+then install react dependecies using npm, then run the development server:
 
 ```
 $ cd app
@@ -15,7 +15,7 @@ $ npm run dev
 
 ---
 
-you also need to install server dependecies, and run the server in another terminal
+you also need to install server dependecies, then run the server in another terminal
 
 make sure you have Node.js installed
 
