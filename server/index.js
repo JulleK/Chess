@@ -10,17 +10,13 @@ const io = new Server(server, {
   },
 });
 
-const rooms = [
-  { white: "", black: "", chess: null },
-  { white: "", black: "", chess: null },
-  { white: "", black: "", chess: null },
-  { white: "", black: "", chess: null },
-  { white: "", black: "", chess: null },
-];
-
+const rooms = [{ white: "", black: "", chess: null }];
+const maxRooms = 5;
 function addPlayerToRoom(playerID) {
-  let color;
   for (let room = 0; room < rooms.length; room++) {
+    if (room === rooms.length - 1 && rooms.length <= maxRooms) {
+      rooms.push({ white: "", black: "", chess: null });
+    }
     if (!rooms[room].white) {
       rooms[room].white = playerID;
       rooms[room].chess = new Chess();
@@ -37,16 +33,24 @@ function addPlayerToRoom(playerID) {
 }
 
 function removePlayerFromRoom(playerID) {
-  for (let i = 0; i < rooms.length; i++) {
-    if (rooms[i].white === playerID) {
-      rooms[i].white = "";
+  for (let room = 0; room < rooms.length; room++) {
+    if (rooms[room].white === playerID) {
+      rooms[room].white = "";
+      removeRoom(room);
       console.dir(rooms, { depth: 1 });
       break;
-    } else if (rooms[i].black === playerID) {
-      rooms[i].black = "";
+    } else if (rooms[room].black === playerID) {
+      rooms[room].black = "";
+      removeRoom(room);
       console.dir(rooms, { depth: 1 });
       break;
     }
+  }
+}
+
+function removeRoom(room) {
+  if (!rooms[room].white && !rooms[room].black) {
+    rooms.splice(room, 1);
   }
 }
 
