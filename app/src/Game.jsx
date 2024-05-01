@@ -4,9 +4,10 @@ import { io } from "socket.io-client";
 
 export default function Game() {
   const [socket, setSocket] = useState(null);
-  const [currentPosition, setCurrentPosition] = useState(
-    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-  );
+  const [currentPosition, setCurrentPosition] = useState("");
+  // const [currentPosition, setCurrentPosition] = useState(
+  //   "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  // );
   const [color, setColor] = useState("");
 
   useEffect(() => {
