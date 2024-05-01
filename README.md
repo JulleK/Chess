@@ -1,5 +1,5 @@
 # General Info
-Chess game in React with Typescript and Node.js
+Chess game in React and Node.js with socket.io
 
 ## Setup
 
@@ -15,7 +15,9 @@ $ npm run dev
 
 ---
 
-you also need to install server dependecies, and run the server
+you also need to install server dependecies, and run the server in another terminal
+
+make sure you have Node.js installed
 
 ```
 $ cd server
