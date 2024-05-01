@@ -2,6 +2,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 
 import { Chess } from "chess.js";
+import { captureRejectionSymbol } from "events";
 const chess = new Chess();
 
 const server = createServer();
@@ -11,8 +12,47 @@ const io = new Server(server, {
   },
 });
 
+const rooms = [
+  { white: "", black: "" },
+  { white: "", black: "" },
+  { white: "", black: "" },
+  { white: "", black: "" },
+  { white: "", black: "" },
+];
+
+function addPlayerToRoom(playerID) {
+  for (let i = 0; i < rooms.length; i++) {
+    if (!rooms[i].white) {
+      rooms[i].white = playerID;
+      console.log(rooms);
+      break;
+    } else if (!rooms[i].black) {
+      rooms[i].black = playerID;
+      console.log(rooms);
+      break;
+    }
+  }
+}
+
+function removePlayerFromRoom(playerID) {
+  for (let i = 0; i < rooms.length; i++) {
+    if (rooms[i].white === playerID) {
+      rooms[i].white = "";
+      console.log(rooms);
+      break;
+    } else if (rooms[i].black === playerID) {
+      rooms[i].black = "";
+      console.log(rooms);
+      break;
+    }
+  }
+}
+
 io.on("connection", (socket) => {
   console.log("a player connected");
+  const playerID = socket.id;
+
+  addPlayerToRoom(playerID);
 
   socket.on("startingPosition", () => {
     socket.emit("currentPosition", chess.fen());
@@ -36,6 +76,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
+    removePlayerFromRoom(playerID);
   });
 });
 
