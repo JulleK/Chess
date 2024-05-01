@@ -14,6 +14,10 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("a player connected");
 
+  socket.on("startingPosition", () => {
+    socket.emit("currentPosition", chess.fen());
+  });
+
   socket.on("validate", (move) => {
     try {
       chess.move(move);
