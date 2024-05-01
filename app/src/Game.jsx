@@ -1,27 +1,31 @@
 import Board from "./Board";
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
-const socket = io("ws://localhost:3000");
 
 export default function Game() {
   const [gameStarted, setGameStarted] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(
     "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   );
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Server connection estabilished");
-    });
+    if (socket) {
+      socket.on("connect", () => {
+        console.log("Server connection estabilished");
+      });
 
-    socket.on("currentPosition", (position) => {
-      setCurrentPosition(position);
-    });
-  });
+      socket.on("currentPosition", (position) => {
+        console.log(position);
+        setCurrentPosition(position);
+      });
+    }
+  }, [socket]);
 
   const joinGame = () => {
-    socket.emit("startingPosition");
     setGameStarted(true);
+    const newSocket = io("ws://localhost:3000");
+    setSocket(newSocket);
   };
 
   const onDrop = (move) => {
@@ -40,7 +44,6 @@ export default function Game() {
     promotion = "",
   }) => {
     let move = `${piece[1]}${sourceSquare}-${targetSquare}${promotion}`;
-    console.log(move);
     socket.emit("validate", move);
   };
 
