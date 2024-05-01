@@ -7,6 +7,7 @@ export default function Game() {
   const [currentPosition, setCurrentPosition] = useState(
     "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   );
+  const [color, setColor] = useState("");
 
   useEffect(() => {
     if (!socket) {
@@ -20,6 +21,10 @@ export default function Game() {
 
       newSocket.on("currentPosition", (position) => {
         setCurrentPosition(position);
+      });
+
+      newSocket.on("color", (color) => {
+        setColor(color);
       });
 
       setSocket(newSocket);
@@ -43,8 +48,15 @@ export default function Game() {
   return (
     <>
       <div>
+        <p className="mb-8 text-center text-5xl text-orange-300">
+          You play as {color}
+        </p>
         <div className="border-2 border-black">
-          <Board position={currentPosition} onDrop={onDrop} />
+          <Board
+            position={currentPosition}
+            onDrop={onDrop}
+            orientation={color}
+          />
         </div>
 
         <button
