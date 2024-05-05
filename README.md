@@ -1,6 +1,17 @@
 # General Info
 Chess game in React and Node.js with socket.io
 
+When a user joins a game, he is assigned to a room. 
+If he is the first player in the room, he is given white pieces, if he is the second one he is given black.
+
+When a player makes a move, the chess position is emitted to both players in the room. 
+
+if the move is illegal, the position doesn't change, yet it is still emitted to the players in the room.
+
+libraries:
+- chessboard.jsx - display a chess board in React
+- chess.js - chess logic, keep track of chess games in the backend
+
 ## Setup
 
 To run this project install it locally
