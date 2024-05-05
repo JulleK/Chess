@@ -2,6 +2,7 @@
 Chess game in React and Node.js with socket.io
 
 When a user joins a game, he is assigned to a room. 
+
 If he is the first player in the room, he is given white pieces, if he is the second one he is given black.
 
 When a player makes a move, the chess position is emitted to both players in the room. 
