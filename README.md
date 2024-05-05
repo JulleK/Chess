@@ -11,7 +11,7 @@ When a player makes a move, the chess position is emitted to both players in the
 
 if the move is illegal, the position doesn't change, yet it is still emitted to the players in the room.
 
-libraries:
+## Libraries
 - chessboard.jsx - display a chess board in React
 - chess.js - chess logic, keep track of chess games in the backend
 
