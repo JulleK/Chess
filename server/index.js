@@ -1,6 +1,8 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 
+import mongoose from "mongoose";
+
 import { rooms, addPlayerToRoom, removePlayerFromRoom } from "./chessRooms.js";
 
 const server = createServer();
@@ -47,6 +49,16 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log("server running at http://localhost:3000");
-});
+const mongodbUrl = "mongodb://127.0.0.1:27017/chess";
+mongoose
+  .connect(mongodbUrl)
+  .then(() => {
+    console.log("MongoDB Connected!");
+    server.listen(3000, () => {
+      console.log("server running at http://localhost:3000");
+    });
+  })
+  .catch((err) => {
+    console.log("OH NO ERROR!!!!");
+    console.log(err);
+  });
