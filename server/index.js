@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-import { Chess } from "chess.js";
+import { rooms, addPlayerToRoom, removePlayerFromRoom } from "./chessRooms.js";
 
 const server = createServer();
 const io = new Server(server, {
@@ -9,50 +9,6 @@ const io = new Server(server, {
     origin: "*",
   },
 });
-
-const rooms = [{ white: "", black: "", chess: null }];
-const maxRooms = 5;
-function addPlayerToRoom(playerID) {
-  for (let room = 0; room < rooms.length; room++) {
-    if (room === rooms.length - 1 && rooms.length <= maxRooms) {
-      rooms.push({ white: "", black: "", chess: null });
-    }
-    if (!rooms[room].white) {
-      rooms[room].white = playerID;
-      rooms[room].chess = new Chess();
-      console.dir(rooms, { depth: 1 });
-
-      return { room, color: "white" };
-    } else if (!rooms[room].black) {
-      rooms[room].black = playerID;
-      console.dir(rooms, { depth: 1 });
-
-      return { room, color: "black" };
-    }
-  }
-}
-
-function removePlayerFromRoom(playerID) {
-  for (let room = 0; room < rooms.length; room++) {
-    if (rooms[room].white === playerID) {
-      rooms[room].white = "";
-      removeRoom(room);
-      console.dir(rooms, { depth: 1 });
-      break;
-    } else if (rooms[room].black === playerID) {
-      rooms[room].black = "";
-      removeRoom(room);
-      console.dir(rooms, { depth: 1 });
-      break;
-    }
-  }
-}
-
-function removeRoom(room) {
-  if (!rooms[room].white && !rooms[room].black) {
-    rooms.splice(room, 1);
-  }
-}
 
 io.on("connection", (socket) => {
   console.log("a player connected");
