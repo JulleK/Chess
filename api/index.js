@@ -1,11 +1,18 @@
+import express from "express";
 import mongoose from "mongoose";
+
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("Welcome!!");
+});
 
 const mongodbUrl = "mongodb://127.0.0.1:27017/chess";
 mongoose
   .connect(mongodbUrl)
   .then(() => {
     console.log("MongoDB Connected!");
-    server.listen(5000, () => {
+    app.listen(5000, () => {
       console.log("server running at http://localhost:5000");
     });
   })
