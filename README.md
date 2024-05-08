@@ -11,9 +11,17 @@ When a player makes a move, the chess position is emitted to both players in the
 
 if the move is illegal, the position doesn't change, yet it is still emitted to the players in the room.
 
+## Structure
+- `/app` directory contains the react app. it displays the chessboard when a game starts.
+for the chess logic and move validation it calls the websocket server
+- `/serverWS` directory provides the websocket and chess logic, when a game is started.
+it moves players into seperate chess rooms, each having their own chess.js game.
+- `/api` handles signup and login requests. it communicates with MongoDB.
+
 ## Libraries
-- chessboard.jsx - display a chess board in React
+- chessboard.jsx - display a chess board in React (minimum chess logic)
 - chess.js - chess logic, keep track of chess games in the backend
+- socket.io - server and client side library to provide websocket communication
 
 ## Setup
 
@@ -29,12 +37,22 @@ $ npm run dev
 
 ---
 
-you also need to install server dependecies, then run the server in another terminal
+you also need to install websocket server dependecies, then run the websocket server in another terminal
 
 make sure you have Node.js installed
 
 ```
-$ cd server
+$ cd serverWS
+$ npm install
+$ node index.js
+```
+
+---
+
+install the api server, then run it in yet another terminal
+
+```
+$ cd api
 $ npm install
 $ node index.js
 ```
