@@ -5,11 +5,11 @@ When a user joins a game, he is assigned to a room.
 
 If he is the first player in the room, he is given white pieces, if he is the second one he is given black.
 
-every room has a separate chess game object (from chess.js)
+Every room has a separate chess game instance (from chess.js)
 
 When a player makes a move, the chess position is emitted to both players in the room. 
 
-if the move is illegal, the position doesn't change, yet it is still emitted to the players in the room.
+If the move is illegal, the position doesn't change, yet it is still emitted to the players in the room.
 
 ## Structure
 - `/app` directory contains the react app. it displays the chessboard when a game starts.
