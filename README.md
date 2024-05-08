@@ -22,6 +22,7 @@ it moves players into seperate chess rooms, each having their own chess.js game.
 - chessboard.jsx - display a chess board in React (minimum chess logic)
 - chess.js - chess logic, keep track of chess games in the backend
 - socket.io - server and client side library to provide websocket communication
+- TailwindCSS - library for inline styles
 
 ## Setup
 
