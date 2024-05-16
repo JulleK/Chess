@@ -1,46 +1,30 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { Route, Routes } from "react-router-dom";
+import Signup from "./Signup";
+import Login from "./Login";
+import Home from "./Home";
 import Game from "./Game";
-import LoginButton from "./LoginButton";
-import SignupButton from "./SignupButton";
 
 export default function App() {
-  const [gameStarted, setGameStarted] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  // useEffect(() => {
-  //   axios
-  //     .post("http://localhost:5000/signup")
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-
-  const joinGame = () => {
-    setGameStarted(true);
-  };
-
   return (
-    <div className="h-screen w-screen bg-slate-800">
-      <h1 className="h1">Chess JulleK</h1>
-      <div className="flex h-auto items-center justify-center">
-        {!loggedIn && (
-          <div className="flex flex-col text-white">
-            <SignupButton />
-            <LoginButton />
-          </div>
-        )}
-        {loggedIn && !gameStarted && (
-          <button onClick={joinGame} className="border-2 p-10 text-white">
-            Join Game
-          </button>
-        )}
+    <>
+      <div
+        className="flex h-screen w-screen flex-col items-center 
+      justify-center bg-slate-800"
+      >
+        <h1 className="h1">Chess JulleK</h1>
 
-        {gameStarted && <Game />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Signup" element={<Signup />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Game" element={<Game />} />
+        </Routes>
+
+        <footer className="mb-1 mt-auto text-center text-slate-500">
+          © Copyright 2024 JulleK <br />
+          All Rights Reserved
+        </footer>
       </div>
-    </div>
+    </>
   );
 }
