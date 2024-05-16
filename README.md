@@ -23,6 +23,8 @@ it moves players into seperate chess rooms, each having their own chess.js game.
 - chess.js - chess logic, keep track of chess games in the backend
 - socket.io - server and client side library to provide websocket communication
 - TailwindCSS - library for inline styles
+- Express.js - node server, handles server routing 
+- react-router-dom - handles frontend routing in react
 
 ## Setup
 
