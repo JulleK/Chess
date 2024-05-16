@@ -29,8 +29,8 @@ export default function App() {
       <div className="flex h-auto items-center justify-center">
         {!loggedIn && (
           <div className="flex flex-col text-white">
-            <Signup />
-            <Login />
+            <SignupButton />
+            <LoginButton />
           </div>
         )}
         {loggedIn && !gameStarted && (
