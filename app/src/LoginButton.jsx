@@ -1,3 +1,3 @@
-export default function Login() {
+export default function LoginButton() {
   return <button className="btn">Login</button>;
 }

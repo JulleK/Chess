@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Game from "./Game";
-import Login from "./Login";
-import Signup from "./Signup";
+import LoginButton from "./LoginButton";
+import SignupButton from "./SignupButton";
 
 export default function App() {
   const [gameStarted, setGameStarted] = useState(false);

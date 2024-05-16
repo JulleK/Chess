@@ -1,3 +1,3 @@
-export default function Signup() {
+export default function SignupButton() {
   return <button className="btn">Signup</button>;
 }
