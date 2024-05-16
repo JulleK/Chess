@@ -6,8 +6,15 @@ const app = express();
 
 app.use(cors());
 
+// parse incoming data
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Welcome!!");
+});
+
+app.post("/signup", (req, res) => {
+  res.send("signed up successfully");
 });
 
 const mongodbUrl = "mongodb://127.0.0.1:27017/chess";
