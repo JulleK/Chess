@@ -11,7 +11,7 @@ export default function App() {
         className="flex h-screen w-screen flex-col items-center 
       justify-center bg-slate-800"
       >
-        <h1 className="h1">Chess JulleK</h1>
+        <h1 className="h1">Chess</h1>
 
         <Routes>
           <Route path="/" element={<Home />} />
