@@ -32,4 +32,16 @@
   .register {
     @apply h-10 w-40 rounded-sm border-slate-200 bg-lime-600 text-lg;
   }
+
+  .errorBox {
+    @apply rounded-xl border border-red-500 p-16 pt-8;
+  }
+
+  .errorText {
+    @apply text-xl font-bold text-red-400;
+  }
+
+  .errorCode {
+    @apply m-0 mb-10 text-center text-4xl font-extrabold text-red-500;
+  }
 }
