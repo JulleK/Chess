@@ -13,7 +13,7 @@
   }
 
   form {
-    @apply flex h-96 flex-col items-center justify-between rounded-2xl
+    @apply flex h-[28em] flex-col items-center justify-between rounded-2xl
      border border-slate-300 px-12 py-6 text-slate-200;
   }
 
@@ -23,6 +23,10 @@
 
   h3 {
     @apply text-center text-4xl;
+  }
+
+  h5 {
+    @apply text-center text-xl;
   }
 
   .register {
