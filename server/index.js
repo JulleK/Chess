@@ -17,6 +17,13 @@ app.post("/signup", (req, res) => {
   res.send("signed up successfully");
 });
 
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  if (username === "test" && password === "test")
+    res.status(200).send(username);
+  else res.status(401).json("incorrect username or password");
+});
+
 const mongodbUrl = "mongodb://127.0.0.1:27017/chess";
 mongoose
   .connect(mongodbUrl)
