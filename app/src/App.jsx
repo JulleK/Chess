@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
 import Home from "./Home";
@@ -11,7 +11,9 @@ export default function App() {
         className="flex h-screen w-screen flex-col items-center 
       justify-center bg-slate-800"
       >
-        <h1 className="h1">Chess</h1>
+        <Link to="/">
+          <h1 className="h1 hover:cursor-pointer">Chess</h1>
+        </Link>
 
         <Routes>
           <Route path="/" element={<Home />} />
