@@ -70,7 +70,8 @@ app.post("/signup", async (req, res) => {
     const existingUsername = await User.findOne({ username });
     if (existingEmail) {
       return res.status(400).json({ msg: "Email already exists" });
-    } else if (existingUsername) {
+    }
+    if (existingUsername) {
       return res.status(400).json({ msg: "Username already exists" });
     }
 
@@ -84,9 +85,36 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  if (username === "test" && password === "test")
-    res.status(200).send(username);
-  else res.status(401).json("incorrect username or password");
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid username or password" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid username or password" });
+    }
+
+    req.session.userId = user._id;
+    res.json({
+      user: { id: user._id, username: user.username, email: user.email },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/me", async (req, res) => {
+  try {
+    if (!req.session.userId) {
+      return res.status(401).json({ msg: "Unauthorized" });
+    }
+    const user = await User.findById(req.session.userId);
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
