@@ -22,7 +22,7 @@ export default function Login() {
         })
         .catch(function (error) {
           console.log(error);
-          if (error.response.data) setErrorMsg(error.response.data);
+          if (error.response.data.msg) setErrorMsg(error.response.data.msg);
         });
     } else {
       setErrorMsg("please provide username, and password");
