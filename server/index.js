@@ -1,18 +1,21 @@
 import express from "express";
-const app = express();
-
 import mongoose from "mongoose";
 import cors from "cors";
 import session from "express-session";
 import { dbUrl } from "./config.js";
-
-// stores session data
 import MongoStore from "connect-mongo";
+
+const app = express();
+
+// allow external requests
+app.use(cors());
+
+// parse incoming data
+app.use(express.json());
 
 const store = MongoStore.create({
   mongoUrl: dbUrl,
-  // secret: "omegaSeCrEet_c0de",
-  // touchAfter: 24 * 60 * 60,
+  touchAfter: 24 * 60 * 60,
 });
 
 store.on("error", (e) => {
@@ -28,38 +31,15 @@ const sessionConfig = {
   cookie: {
     httpOnly: true,
     // secure: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
   },
 };
 app.use(session(sessionConfig));
 
-// allow external requests
-app.use(cors());
-
-// parse incoming data
-app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("Welcome!!");
-});
-
-app.post("/signup", (req, res) => {
-  res.send("signed up successfully");
-});
-
-app.post("/login", (req, res) => {
-  // req.session.test = "testTest";
-  // console.log(req.session);
-  const { username, password } = req.body;
-  if (username === "test" && password === "test")
-    res.status(200).send(username);
-  else res.status(401).json("incorrect username or password");
-});
-
-const mongodbUrl = dbUrl;
+// MongoDB Connection
 mongoose
-  .connect(mongodbUrl)
+  .connect(dbUrl)
   .then(() => {
     console.log("MongoDB Connected!");
     app.listen(5000, () => {
@@ -70,3 +50,19 @@ mongoose
     console.log("OH NO ERROR!!!!");
     console.log(err);
   });
+
+// Routes
+app.get("/", (req, res) => {
+  res.send("Welcome!!");
+});
+
+app.post("/signup", (req, res) => {
+  res.send("signed up successfully");
+});
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  if (username === "test" && password === "test")
+    res.status(200).send(username);
+  else res.status(401).json("incorrect username or password");
+});
