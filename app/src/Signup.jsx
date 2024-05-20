@@ -23,6 +23,7 @@ export default function Signup() {
         })
         .catch(function (error) {
           console.log(error);
+          if (error.response.data.msg) setErrorMsg(error.response.data.msg);
         });
     } else {
       setErrorMsg("please provide email, username, and password");
