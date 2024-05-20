@@ -2,8 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import session from "express-session";
-import { dbUrl } from "./config.js";
 import MongoStore from "connect-mongo";
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 
 const app = express();
 
@@ -14,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 const store = MongoStore.create({
-  mongoUrl: dbUrl,
+  mongoUrl: process.env.DB_URL,
   touchAfter: 24 * 60 * 60,
 });
 
@@ -25,7 +29,7 @@ store.on("error", (e) => {
 const sessionConfig = {
   store,
   name: "session",
-  secret: "superSecret_code_:o",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -39,11 +43,11 @@ app.use(session(sessionConfig));
 
 // MongoDB Connection
 mongoose
-  .connect(dbUrl)
+  .connect(process.env.DB_URL)
   .then(() => {
     console.log("MongoDB Connected!");
-    app.listen(5000, () => {
-      console.log("server running at http://localhost:5000");
+    app.listen(process.env.PORT, () => {
+      console.log(`server running at http://localhost:${process.env.PORT}`);
     });
   })
   .catch((err) => {
