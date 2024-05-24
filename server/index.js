@@ -134,7 +134,9 @@ app.get("/me", async (req, res) => {
       return res.status(401).json({ msg: "Unauthorized" });
     }
     const user = await User.findById(req.session.userId);
-    res.json(user);
+    res.json({
+      user: { id: user._id, username: user.username, email: user.email },
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
