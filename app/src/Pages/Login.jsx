@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { serverAddress } from "./config";
+import { serverAddress } from "../config";
 
 export default function Login() {
   const [username, setUsername] = useState("");

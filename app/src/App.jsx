@@ -1,9 +1,9 @@
 import { Route, Routes, Link } from "react-router-dom";
-import Signup from "./Signup";
-import Login from "./Login";
-import Home from "./Home";
-import Game from "./Game";
-import Error from "./Error";
+import Signup from "./Pages/Signup";
+import Login from "./Pages/Login";
+import Home from "./Pages/Home";
+import Game from "./Pages/Game";
+import Error from "./Pages/Error";
 
 export default function App() {
   return (

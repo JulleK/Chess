@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Game from "./Game";
-import SignupButton from "./SignupButton";
-import LoginButton from "./LoginButton";
+import SignupButton from "../Components/SignupButton";
+import LoginButton from "../Components/LoginButton";
 
 export default function Home() {
   const [gameStarted, setGameStarted] = useState(false);
