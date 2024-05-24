@@ -118,6 +118,16 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.post("/logout", (req, res) => {
+  req.session.destroy((error) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    res.clearCookie("session");
+    res.status(200).json({ msg: "Logged out successfully" });
+  });
+});
+
 app.get("/me", async (req, res) => {
   try {
     if (!req.session.userId) {
