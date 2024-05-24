@@ -84,7 +84,13 @@ app.post("/signup", async (req, res) => {
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
     req.session.userId = newUser._id;
-    res.status(201).json({ msg: "User registered successfully" });
+    res.status(201).json({
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
