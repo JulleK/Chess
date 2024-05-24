@@ -5,20 +5,8 @@ import Game from "./Game";
 import SignupButton from "../Components/SignupButton";
 import LoginButton from "../Components/LoginButton";
 
-export default function Home() {
+export default function Home({ user, setUser }) {
   const [gameStarted, setGameStarted] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  // useEffect(() => {
-  //   axios
-  //     .post("http://localhost:5000/signup")
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   const joinGame = () => {
     setGameStarted(true);
@@ -26,7 +14,7 @@ export default function Home() {
 
   return (
     <>
-      {!loggedIn && (
+      {!user && (
         <div className="mt-32 flex flex-col text-white">
           <Link to="/Signup">
             <SignupButton />
@@ -37,7 +25,7 @@ export default function Home() {
         </div>
       )}
 
-      {loggedIn && !gameStarted && (
+      {user && !gameStarted && (
         <Link to="Game">
           <button onClick={joinGame} className="border-2 p-10 text-white">
             Join Game

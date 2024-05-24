@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { serverAddress } from "../config";
 
-export default function Login() {
+export default function Login({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -14,13 +14,16 @@ export default function Login() {
     setErrorMsg("");
     if (username && password) {
       axios
-        .post(`${serverAddress}/login`, { username, password })
-        .then(function (response) {
-          // todo
-          console.log(response);
+        .post(
+          `${serverAddress}/login`,
+          { username, password },
+          { withCredentials: true },
+        )
+        .then((response) => {
+          setUser(response.data.user);
           navigate("/");
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
           if (error.response.data.msg) setErrorMsg(error.response.data.msg);
         });

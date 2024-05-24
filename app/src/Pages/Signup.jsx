@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { serverAddress } from "../config";
 
-export default function Signup() {
+export default function Signup({ setUser }) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,13 +15,16 @@ export default function Signup() {
     setErrorMsg("");
     if (email && username && password) {
       axios
-        .post(`${serverAddress}/signup`, { email, username, password })
-        .then(function (response) {
-          // todo
-          console.log(response);
+        .post(
+          `${serverAddress}/signup`,
+          { email, username, password },
+          { withCredentials: true },
+        )
+        .then((response) => {
+          setUser(response.data.user);
           navigate("/");
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
           if (error.response.data.msg) setErrorMsg(error.response.data.msg);
         });
@@ -58,7 +61,7 @@ export default function Signup() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="register" onClick={(e) => handleSubmit(e)}>
+      <button className="register" onClick={handleSubmit}>
         Register
       </button>
     </form>
