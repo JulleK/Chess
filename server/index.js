@@ -14,7 +14,12 @@ if (process.env.NODE_ENV !== "production") {
 const app = express();
 
 // allow external requests
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 // parse incoming data
 app.use(express.json());
