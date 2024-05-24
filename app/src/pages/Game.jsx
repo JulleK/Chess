@@ -42,14 +42,10 @@ export default function Game() {
     socket.emit("validate", move);
   };
 
-  const resetGame = () => {
-    socket.emit("resetGame");
-  };
-
   return (
     <>
       <div>
-        <p className="mb-8 text-center text-5xl text-orange-300">
+        <p className="mb-6 text-center text-4xl text-orange-300">
           You play as {color}
         </p>
         <div className="border-2 border-black">
@@ -59,13 +55,6 @@ export default function Game() {
             orientation={color}
           />
         </div>
-
-        <button
-          className="mt-5 rounded-sm border-2 p-1 text-white"
-          onClick={resetGame}
-        >
-          Reset Game
-        </button>
       </div>
     </>
   );

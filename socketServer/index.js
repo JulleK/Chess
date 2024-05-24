@@ -35,10 +35,10 @@ io.on("connection", (socket) => {
     io.to(room).emit("currentPosition", chess.fen());
   });
 
-  socket.on("resetGame", () => {
-    chess.reset();
-    io.to(room).emit("currentPosition", chess.fen());
-  });
+  // socket.on("resetGame", () => {
+  //   chess.reset();
+  //   io.to(room).emit("currentPosition", chess.fen());
+  // });
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
