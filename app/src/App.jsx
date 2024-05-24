@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
-import Signup from "./Pages/Signup";
-import Login from "./Pages/Login";
-import Home from "./Pages/Home";
-import Game from "./Pages/Game";
-import Error from "./Pages/Error";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Game from "./pages/Game";
+import Error from "./pages/Error";
 import axios from "axios";
 import { serverAddress } from "./config";
 

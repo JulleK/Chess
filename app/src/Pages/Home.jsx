@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Game from "./Game";
-import SignupButton from "../Components/SignupButton";
-import LoginButton from "../Components/LoginButton";
+import SignupButton from "../components/SignupButton";
+import LoginButton from "../components/LoginButton";
 import { serverAddress } from "../config";
 
 export default function Home({ user, setUser }) {

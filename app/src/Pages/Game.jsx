@@ -1,4 +1,4 @@
-import Board from "../Components/Board";
+import Board from "../components/Board";
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
