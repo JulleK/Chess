@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { serverAddress } from "./config";
+import { serverAddress } from "../config";
 
-export default function Login() {
+export default function Signup({ setUser }) {
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -12,26 +13,38 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMsg("");
-    if (username && password) {
+    if (email && username && password) {
       axios
-        .post(`${serverAddress}/login`, { username, password })
-        .then(function (response) {
-          // todo
-          console.log(response);
+        .post(
+          `${serverAddress}/signup`,
+          { email, username, password },
+          { withCredentials: true },
+        )
+        .then((response) => {
+          setUser(response.data.user);
           navigate("/");
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
           if (error.response.data.msg) setErrorMsg(error.response.data.msg);
         });
     } else {
-      setErrorMsg("please provide username, and password");
+      setErrorMsg("please provide email, username, and password");
     }
   };
+
   return (
     <form>
-      <h3 className="text-center">Login</h3>
+      <h3 className="text-center">Signup</h3>
       {errorMsg && <h5 className="font-semibold text-red-500">{errorMsg}</h5>}
+      <input
+        type="email"
+        placeholder="email"
+        name="email"
+        id="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <input
         type="text"
         placeholder="username"
@@ -48,8 +61,8 @@ export default function Login() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="register" onClick={(e) => handleSubmit(e)}>
-        Login
+      <button className="register" onClick={handleSubmit}>
+        Register
       </button>
     </form>
   );

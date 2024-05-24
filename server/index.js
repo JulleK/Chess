@@ -4,8 +4,7 @@ import cors from "cors";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import dotenv from "dotenv";
-import User from "./models/User.js";
-import bcrypt from "bcrypt";
+import authRoutes from "./routes/auth.js";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -14,7 +13,12 @@ if (process.env.NODE_ENV !== "production") {
 const app = express();
 
 // allow external requests
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 // parse incoming data
 app.use(express.json());
@@ -57,64 +61,9 @@ mongoose
     console.log(err);
   });
 
-// Routes
+// Use Routes
+app.use("/", authRoutes);
+
 app.get("/", (req, res) => {
   res.send("Welcome!!");
-});
-
-app.post("/signup", async (req, res) => {
-  const { username, password, email } = req.body;
-  try {
-    // check if username or email already taken
-    const existingEmail = await User.findOne({ email });
-    const existingUsername = await User.findOne({ username });
-    if (existingEmail) {
-      return res.status(400).json({ msg: "Email already exists" });
-    }
-    if (existingUsername) {
-      return res.status(400).json({ msg: "Username already exists" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, email, password: hashedPassword });
-    await newUser.save();
-    req.session.userId = newUser._id;
-    res.status(201).json({ msg: "User registered successfully" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(400).json({ msg: "Invalid username or password" });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid username or password" });
-    }
-
-    req.session.userId = user._id;
-    res.json({
-      user: { id: user._id, username: user.username, email: user.email },
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.get("/me", async (req, res) => {
-  try {
-    if (!req.session.userId) {
-      return res.status(401).json({ msg: "Unauthorized" });
-    }
-    const user = await User.findById(req.session.userId);
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
 });
