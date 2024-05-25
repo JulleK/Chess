@@ -45,9 +45,6 @@ export default function Game() {
   return (
     <>
       <div>
-        <p className="mb-6 text-center text-4xl text-orange-300">
-          You play as {color}
-        </p>
         <div className="border-2 border-black">
           <Board
             position={currentPosition}
