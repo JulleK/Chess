@@ -31,7 +31,7 @@ export default function App() {
       justify-center bg-slate-800"
     >
       <Link to="/">
-        <h1 className="h1 hover:cursor-pointer">Chess</h1>
+        <h1 className="hover:cursor-pointer">Chess</h1>
       </Link>
 
       <Routes>
