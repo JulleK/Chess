@@ -50,6 +50,6 @@
   }
 
   .history-btn {
-    @apply rounded-xl border-4 border-orange-300 px-8 pb-3;
+    @apply rounded-xl border-4 border-orange-300 px-10 pb-3;
   }
 }
