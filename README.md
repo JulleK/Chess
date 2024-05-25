@@ -20,7 +20,7 @@ it moves players into seperate chess rooms, each having their own chess.js game.
 
 ## Libraries
 - chessboard.jsx - display a chess board in React (minimum chess logic)
-- chess.js - chess logic, keep track of chess games in the backend
+- chess.js - chess logic, keeps track of chess games in the backend
 - socket.io - server and client side library to provide websocket communication
 - TailwindCSS - library for inline styles
 - Express.js - node server, handles server routing 
@@ -30,7 +30,7 @@ it moves players into seperate chess rooms, each having their own chess.js game.
 
 To run this project install it locally
 
-then install react dependecies using npm, then run the development server:
+install react dependecies using npm, then run the development server:
 
 ```
 $ cd app
