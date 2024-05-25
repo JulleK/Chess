@@ -8,7 +8,7 @@
   }
 
   h1 {
-    @apply m-0 select-none pb-20 pt-8 text-center text-7xl font-bold 
+    @apply m-0 select-none pb-16 pt-8 text-center text-7xl font-bold 
     text-slate-200 hover:cursor-default;
   }
 
@@ -43,5 +43,13 @@
 
   .error-code {
     @apply m-0 mb-10 text-center text-4xl font-extrabold text-red-500;
+  }
+
+  .history-btn-container {
+    @apply mt-5 flex justify-end text-4xl font-extrabold text-orange-300;
+  }
+
+  .history-btn {
+    @apply rounded-xl border-4 border-orange-300 px-8 pb-3;
   }
 }

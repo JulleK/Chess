@@ -55,6 +55,10 @@ export default function Game() {
             orientation={color}
           />
         </div>
+        <div className="history-btn-container">
+          <button className="history-btn">&lt;</button>
+          <button className="history-btn ml-8">&gt;</button>
+        </div>
       </div>
     </>
   );
