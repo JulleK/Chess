@@ -1,5 +1,5 @@
 # General Info
-Chess game in React and Node.js with socket.io
+This is a chess game in React and Node.js built with socket.io
 
 When a user joins a game, he is assigned to a room
 
